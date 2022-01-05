@@ -26,12 +26,12 @@ class ImageController extends Controller
 
         foreach ($request->file('images') as $file) {
             $name = time() . rand(1, 100) . '.' . $file->extension();
-            $path = $file->storeAs('files', $name);
+            $file->storeAs('public', $name);
 
             $image = new Image();
 
             $image->album_id = $request->album_id;
-            $image->path = $path;
+            $image->path = "storage/$name";
 
             $image->save();
         }

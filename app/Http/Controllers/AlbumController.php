@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
     /**
-     * Get all albums
+     * Get all albums with main album image
      */
     public function index()
     {
-        return Album::all();
+        return Album::with(['images' => function ($query) {
+            $query->mainAlbumImage();
+        }])->get();
     }
 
     /**
