@@ -15,7 +15,7 @@ class AlbumController extends Controller
     {
         return Album::with(['images' => function ($query) {
             $query->mainAlbumImage();
-        }])->get();
+        }])->orderBy('km', 'DESC')->get();
     }
 
     /**

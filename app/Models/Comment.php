@@ -10,6 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'album_id',
         'author',
         'text',
         'report',
