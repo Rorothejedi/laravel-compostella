@@ -16,10 +16,12 @@ class CreateAlbumsTable extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
             $table->text('text')->nullable();
-            $table->integer('km');
-            $table->string('departure_place');
-            $table->string('arrival_place');
-            $table->boolean('hide')->default(false);
+            $table->date('date');
+            $table->string('place_departure');
+            $table->string('place_arrival');
+            $table->integer('km_step');
+            $table->integer('km_total');
+            $table->boolean('hide')->default(true);
             $table->timestamps();
         });
     }

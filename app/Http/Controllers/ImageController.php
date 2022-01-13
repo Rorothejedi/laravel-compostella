@@ -43,6 +43,7 @@ class ImageController extends Controller
 
     /**
      * Update the image data
+     * Response 204
      */
     public function update(Request $request, Image $image)
     {
@@ -55,6 +56,6 @@ class ImageController extends Controller
         $image->main_album_image = $request->main_album_image;
         $image->save();
 
-        return $image;
+        return response()->noContent();
     }
 }

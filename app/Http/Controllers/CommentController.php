@@ -9,6 +9,7 @@ class CommentController extends Controller
 {
     /**
      * Store new comment in album passed in request
+     * Response 200 with data
      */
     public function store(Request $request)
     {
@@ -22,45 +23,51 @@ class CommentController extends Controller
     }
 
     /**
+     * Get all comments where report column is over 0
+     * Response 200 with data
+     */
+    public function reports()
+    {
+        return Comment::where('report', '>', 0)->get();
+    }
+
+    /**
      * Add one to report value for reported comment
+     * Response 204
      */
     public function report(Comment $comment)
     {
         $comment->report++;
         $comment->save();
 
-        return $comment;
+        return response()->noContent();
     }
 
     /**
      * Update comment passed in parameter with data in request 
+     * Response 204
      */
     public function update(Request $request, Comment $comment)
     {
         $request->validate([
-            'author' => 'required|string',
-            'text' => 'required|string',
-            'report' => 'required|integer',
+            // 'author' => 'required|string',
+            // 'text' => 'required|string',
+            'report' => 'filled|integer',
         ]);
 
         $comment->update($request->all());
 
-        return $comment;
+        return response()->noContent();
     }
 
     /**
      * Delete the comment passed in parameter
+     * Response 204
      */
     public function delete(Comment $comment)
     {
         $comment->delete();
-    }
 
-    /**
-     * Get all comments where report column is over 0
-     */
-    public function reports()
-    {
-        return Comment::where('report', '>', 0)->get();
+        return response()->noContent();
     }
 }

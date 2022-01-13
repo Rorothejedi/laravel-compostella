@@ -15,9 +15,11 @@ class AlbumFactory extends Factory
     {
         return [
             'text' => $this->faker->text(),
-            'km' => $this->faker->numberBetween(0, 1600),
-            'departure_place' => $this->faker->city(),
-            'arrival_place' => $this->faker->city(),
+            'date' => $this->faker->date(),
+            'place_departure' => $this->faker->city(),
+            'place_arrival' => $this->faker->city(),
+            'km_step' => $this->faker->numberBetween(10, 40),
+            'km_total' => $this->faker->numberBetween(0, 1500),
         ];
     }
 }

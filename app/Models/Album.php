@@ -11,9 +11,12 @@ class Album extends Model
 
     protected $fillable = [
         'text',
-        'km',
-        'departure_place',
-        'arrival_place',
+        'date',
+        'place_departure',
+        'place_arrival',
+        'km_step',
+        'km_total',
+        'hide',
     ];
 
     public function comments()
