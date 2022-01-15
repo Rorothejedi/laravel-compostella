@@ -17,6 +17,9 @@ class AlbumController extends Controller
             'hide' => 'filled|boolean',
         ]);
 
+        // $km_total_max = Album::max('km_total');
+
+
         $albums = Album::with(['images' => function ($query) {
             $query->mainAlbumImage();
         }]);
@@ -25,11 +28,12 @@ class AlbumController extends Controller
             $albums = $albums->where('hide', $request->hide);
         }
 
+
         return $albums->orderBy('date', 'DESC')->get();
     }
 
     /**
-     * Get one album with associated comments
+     * Get one album with associated comments and images
      * Response 200 with data
      */
     public function show(Album $album)
@@ -49,15 +53,16 @@ class AlbumController extends Controller
             'place_departure' => 'required|string',
             'place_arrival' => 'required|string',
             'km_step' => 'required|integer|max:100',
-            'km_total' => 'filled|integer|max:2000',
         ]);
 
-        return Album::create($request->all());
+        Album::create($request->all());
+
+        return $this->recalculateAlbumsTotalKilometer();
     }
 
     /**
      * Update album passed in parameter with data in request
-     * Response 204
+     * Response 200 with data
      */
     public function update(Request $request, Album $album)
     {
@@ -67,13 +72,14 @@ class AlbumController extends Controller
             'place_departure' => 'filled|string',
             'place_arrival' => 'filled|string',
             'km_step' => 'filled|integer|max:100',
-            'km_total' => 'filled|integer|max:2000',
             'hide' => 'filled|boolean',
         ]);
 
         $album->update($request->all());
 
-        return response()->noContent();
+        $this->recalculateAlbumsTotalKilometer();
+
+        return $album;
     }
 
     /**
@@ -84,6 +90,29 @@ class AlbumController extends Controller
     {
         $album->delete();
 
+        $this->recalculateAlbumsTotalKilometer();
+
         return response()->noContent();
+    }
+
+    /* 
+    * Recalculation of km_total for all albums with new km_step value 
+    */
+    protected function recalculateAlbumsTotalKilometer()
+    {
+        $albums = Album::orderby('date')->get();
+
+        $previous_km_total = 0;
+
+        foreach ($albums as $key => $album) {
+            if (!empty($albums[$key - 1])) {
+                $previous_km_total =  $albums[$key - 1]->km_total;
+            }
+
+            $album->km_total = $previous_km_total + $album->km_step;
+            $album->save();
+        }
+
+        return $albums;
     }
 }

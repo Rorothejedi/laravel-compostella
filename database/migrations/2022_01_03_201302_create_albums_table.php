@@ -20,7 +20,7 @@ class CreateAlbumsTable extends Migration
             $table->string('place_departure');
             $table->string('place_arrival');
             $table->integer('km_step');
-            $table->integer('km_total');
+            $table->integer('km_total')->default(0);
             $table->boolean('hide')->default(true);
             $table->timestamps();
         });

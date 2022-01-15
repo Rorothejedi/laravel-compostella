@@ -15,7 +15,6 @@ class Album extends Model
         'place_departure',
         'place_arrival',
         'km_step',
-        'km_total',
         'hide',
     ];
 
