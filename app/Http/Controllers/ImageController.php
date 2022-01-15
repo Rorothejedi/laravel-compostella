@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -12,6 +13,7 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'album_id' => 'required|exists:albums,id',
             'images' => 'required',
@@ -24,9 +26,11 @@ class ImageController extends Controller
             ], 204);
         }
 
+
         foreach ($request->file('images') as $file) {
             $name = time() . rand(1, 100) . '.' . $file->extension();
             $file->storeAs('public', $name);
+
 
             $image = new Image();
 
@@ -55,6 +59,21 @@ class ImageController extends Controller
         $image->text = $request->text;
         $image->main_album_image = $request->main_album_image;
         $image->save();
+
+        return response()->noContent();
+    }
+
+    /**
+     * Delete the image
+     * Response 204
+     */
+    public function destroy(Image $image)
+    {
+        $file_name = explode('/', $image->path)[1];
+
+        Storage::delete("public/$file_name");
+
+        $image->delete();
 
         return response()->noContent();
     }

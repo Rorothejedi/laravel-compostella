@@ -42,4 +42,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/images', [ImageController::class, 'store']);
     Route::patch('/image/{image}', [ImageController::class, 'update']);
+    Route::delete('/image/{image}', [ImageController::class, 'destroy']);
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AlbumResource;
 use App\Models\Album;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,6 @@ class AlbumController extends Controller
             'hide' => 'filled|boolean',
         ]);
 
-        // $km_total_max = Album::max('km_total');
-
-
         $albums = Album::with(['images' => function ($query) {
             $query->mainAlbumImage();
         }]);
@@ -28,8 +26,9 @@ class AlbumController extends Controller
             $albums = $albums->where('hide', $request->hide);
         }
 
+        $albums = $albums->orderBy('date', 'DESC')->get();
 
-        return $albums->orderBy('date', 'DESC')->get();
+        return AlbumResource::collection($albums);
     }
 
     /**
@@ -55,9 +54,11 @@ class AlbumController extends Controller
             'km_step' => 'required|integer|max:100',
         ]);
 
-        Album::create($request->all());
+        $album = Album::create($request->all());
 
-        return $this->recalculateAlbumsTotalKilometer();
+        $this->recalculateAlbumsTotalKilometer();
+
+        return $album->refresh();
     }
 
     /**
@@ -67,11 +68,11 @@ class AlbumController extends Controller
     public function update(Request $request, Album $album)
     {
         $request->validate([
-            'text' => 'filled|string',
+            'text' => 'nullable|string',
             'date' => 'filled|date',
             'place_departure' => 'filled|string',
             'place_arrival' => 'filled|string',
-            'km_step' => 'filled|integer|max:100',
+            'km_step' => 'filled|integer|min:0|max:100',
             'hide' => 'filled|boolean',
         ]);
 
@@ -79,7 +80,7 @@ class AlbumController extends Controller
 
         $this->recalculateAlbumsTotalKilometer();
 
-        return $album;
+        return $album->refresh();
     }
 
     /**
@@ -112,7 +113,5 @@ class AlbumController extends Controller
             $album->km_total = $previous_km_total + $album->km_step;
             $album->save();
         }
-
-        return $albums;
     }
 }
