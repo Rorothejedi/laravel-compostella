@@ -80,7 +80,7 @@ class AlbumController extends Controller
 
         $this->recalculateAlbumsTotalKilometer();
 
-        return $album->refresh();
+        return $album->refresh()->load(['comments', 'images']);
     }
 
     /**

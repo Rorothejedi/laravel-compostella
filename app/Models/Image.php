@@ -9,6 +9,8 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $casts = ['main_album_image' => 'boolean'];
+
     public function scopeMainAlbumImage($query)
     {
         return $query->where('main_album_image', 1);
