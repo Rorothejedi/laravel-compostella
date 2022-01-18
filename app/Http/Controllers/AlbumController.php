@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\AlbumResource;
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
@@ -89,6 +90,11 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
+        foreach ($album->images as $image) {
+            $file_name = explode('/', $image->path)[1];
+            Storage::delete("public/$file_name");
+        }
+
         $album->delete();
 
         $this->recalculateAlbumsTotalKilometer();
