@@ -26,6 +26,8 @@ Route::get('/album/{album}', [AlbumController::class, 'show']);
 
 Route::post('/comment', [CommentController::class, 'store']);
 Route::post('/comment/{comment}/report', [CommentController::class, 'report']);
+Route::post('/comment/{comment}/love', [CommentController::class, 'love']);
+Route::post('/comment/{comment}/unlove', [CommentController::class, 'unlove']);
 
 /* PRIVATE ROUTES */
 

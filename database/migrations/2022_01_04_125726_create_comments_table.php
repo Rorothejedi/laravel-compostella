@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->string('author');
             $table->text('text');
             $table->smallInteger('report')->default(0);
+            $table->smallInteger('love')->default(0);
             $table->timestamps();
         });
     }

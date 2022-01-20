@@ -14,5 +14,6 @@ class Comment extends Model
         'author',
         'text',
         'report',
+        'love',
     ];
 }

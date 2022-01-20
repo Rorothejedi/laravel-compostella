@@ -44,6 +44,32 @@ class CommentController extends Controller
     }
 
     /**
+     * Add one to love value for liked comment
+     * Response 204
+     */
+    public function love(Comment $comment)
+    {
+        $comment->love++;
+        $comment->save();
+
+        return response()->noContent();
+    }
+
+    /**
+     * Remove one to love value for liked comment
+     * Response 204
+     */
+    public function unlove(Comment $comment)
+    {
+        if ($comment->love > 0) {
+            $comment->love--;
+            $comment->save();
+        }
+
+        return response()->noContent();
+    }
+
+    /**
      * Update comment passed in parameter with data in request 
      * Response 204
      */
