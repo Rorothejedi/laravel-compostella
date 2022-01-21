@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PaginationHelper;
 use App\Http\Resources\AlbumResource;
 use App\Models\Album;
 use Illuminate\Http\Request;
@@ -29,7 +30,11 @@ class AlbumController extends Controller
 
         $albums = $albums->orderBy('date', 'DESC')->get();
 
-        return AlbumResource::collection($albums);
+        $per_page = 10;
+
+        $paginated = PaginationHelper::paginate($albums, $per_page);
+
+        return AlbumResource::collection($paginated);
     }
 
     /**
