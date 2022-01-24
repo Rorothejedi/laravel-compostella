@@ -17,11 +17,15 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->foreignId('album_id')->constrained('albums')->onDelete('cascade');
             $table->integer('album_order');
-            $table->string('path');
             $table->text('text')->nullable();
             $table->boolean('main_album_image')->default(0);
+            $table->string('path');
             $table->integer('width');
             $table->integer('height');
+            $table->string('thumbnail_path');
+            $table->integer('thumbnail_width');
+            $table->integer('thumbnail_height');
+            $table->string('cover_path');
             $table->timestamps();
         });
     }

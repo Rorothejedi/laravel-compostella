@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
+use App\Models\Image as ImageModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use ImageManager;
 
 class ImageController extends Controller
 {
@@ -27,17 +28,46 @@ class ImageController extends Controller
 
         foreach ($request->file('images') as $file) {
             // uniqid ?
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('public', $name);
+            $name = time() . rand(1, 100);
+            $thumbnail_name = "thumbnail_$name";
+            $cover_name = "cover_$name";
 
-            $image = new Image();
-            $image_size = getimagesize($file);
+            // Main image (for gallery)
+            ImageManager::make($file)
+                ->orientate()
+                ->heighten(1500)
+                ->save("storage/$name.jpg", 70);
+
+            // Thumbnail image (for gallery)
+            ImageManager::make($file)
+                ->orientate()
+                ->heighten(300)
+                ->save("storage/$thumbnail_name.jpg", 80);
+
+            // Cover image
+            ImageManager::make($file)
+                ->orientate()
+                ->fit(400)
+                ->save("storage/$cover_name.jpg", 85);
+
+            $image = new ImageModel();
+
+            $image_size = getimagesize("storage/$name.jpg");
+            $thumbnail_size = getimagesize("storage/$thumbnail_name.jpg");
 
             $image->album_id = $request->album_id;
             $image->album_order = $this->getMaxImageOrder($request->album_id) + 1;
-            $image->path = "storage/$name";
+
+            $image->path = "storage/$name.jpg";
             $image->width = $image_size[0];
             $image->height = $image_size[1];
+
+            $image->thumbnail_path = "storage/$thumbnail_name.jpg";
+            // A voir si c'est utile (peut être pour une grid) ?
+            $image->thumbnail_width = $thumbnail_size[0];
+            $image->thumbnail_height = $thumbnail_size[1];
+
+            $image->cover_path = "storage/$cover_name.jpg";
 
             $image->save();
         }
@@ -51,7 +81,7 @@ class ImageController extends Controller
      * Update the image data
      * Response 204
      */
-    public function update(Request $request, Image $image)
+    public function update(Request $request, ImageModel $image)
     {
         $request->validate([
             'album_order' => 'filled|integer',
@@ -70,7 +100,7 @@ class ImageController extends Controller
             $image->main_album_image = $request->main_album_image;
         }
 
-        $other_main_image = Image::where([
+        $other_main_image = ImageModel::where([
             'album_id' => $image->album_id,
             'main_album_image' => 1,
         ])
@@ -91,12 +121,14 @@ class ImageController extends Controller
      * Delete the image
      * Response 204
      */
-    public function destroy(Image $image)
+    public function destroy(ImageModel $image)
     {
         $file_name = explode('/', $image->path)[1];
         $album_id = $image->album_id;
 
         Storage::delete("public/$file_name");
+        Storage::delete("public/thumbnail_$file_name");
+        Storage::delete("public/cover_$file_name");
 
         $image->delete();
 
@@ -111,7 +143,7 @@ class ImageController extends Controller
      */
     protected function getMaxImageOrder($album_id)
     {
-        return Image::where('album_id', $album_id)->max('album_order');
+        return ImageModel::where('album_id', $album_id)->max('album_order');
     }
 
     /**
@@ -120,7 +152,7 @@ class ImageController extends Controller
      */
     protected function recalculateImageOrder($album_id)
     {
-        $images = Image::where('album_id', $album_id)->orderBy('album_order')->get();
+        $images = ImageModel::where('album_id', $album_id)->orderBy('album_order')->get();
 
         foreach ($images as $key => $image) {
             $image->album_order = $key;
@@ -134,7 +166,7 @@ class ImageController extends Controller
      */
     protected function switchOtherImageOrder($album_id, $old_order, $new_order)
     {
-        $image = Image::where([
+        $image = ImageModel::where([
             'album_id' => $album_id,
             'album_order' => $new_order,
         ])->first();
