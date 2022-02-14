@@ -41,7 +41,7 @@ class ImageController extends Controller
             // Thumbnail image (for gallery)
             ImageManager::make($file)
                 ->orientate()
-                ->heighten(300)
+                ->heighten(400)
                 ->save("storage/$thumbnail_name.jpg", 80);
 
             // Cover image
@@ -63,7 +63,7 @@ class ImageController extends Controller
             $image->height = $image_size[1];
 
             $image->thumbnail_path = "storage/$thumbnail_name.jpg";
-            // A voir si c'est utile (peut être pour une grid) ?
+            // A voir si c'est utile (peut être pour la grid) ?
             $image->thumbnail_width = $thumbnail_size[0];
             $image->thumbnail_height = $thumbnail_size[1];
 

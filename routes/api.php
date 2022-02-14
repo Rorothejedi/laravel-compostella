@@ -4,6 +4,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,10 +40,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/album/{album}', [AlbumController::class, 'destroy']);
 
     Route::patch('/comment/{comment}', [CommentController::class, 'update']);
-    Route::delete('/comment/{comment}', [CommentController::class, 'delete']);
+    Route::delete('/comment/{comment}', [CommentController::class, 'destroy']);
     Route::get('/comments/reports', [CommentController::class, 'reports']);
 
     Route::post('/images', [ImageController::class, 'store']);
     Route::patch('/image/{image}', [ImageController::class, 'update']);
     Route::delete('/image/{image}', [ImageController::class, 'destroy']);
+
+    Route::post('/video', [VideoController::class, 'store']);
+    Route::patch('/video/{video}', [VideoController::class, 'update']);
+    Route::delete('/video/{video}', [VideoController::class, 'destroy']);
 });

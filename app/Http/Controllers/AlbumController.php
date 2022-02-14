@@ -18,6 +18,7 @@ class AlbumController extends Controller
     {
         $request->validate([
             'hide' => 'filled|boolean',
+            'per_page' => 'filled|integer|min:-1',
         ]);
 
         $albums = Album::with(['images' => function ($query) {
@@ -30,7 +31,7 @@ class AlbumController extends Controller
 
         $albums = $albums->orderBy('date', 'DESC')->get();
 
-        $per_page = 10;
+        $per_page = $request->has('per_page') ? $request->per_page : 10;
 
         $paginated = PaginationHelper::paginate($albums, $per_page);
 
@@ -43,7 +44,7 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        return $album->load(['comments', 'images']);
+        return $album->load(['comments', 'images', 'videos']);
     }
 
     /**

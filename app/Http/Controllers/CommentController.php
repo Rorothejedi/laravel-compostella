@@ -90,7 +90,7 @@ class CommentController extends Controller
      * Delete the comment passed in parameter
      * Response 204
      */
-    public function delete(Comment $comment)
+    public function destroy(Comment $comment)
     {
         $comment->delete();
 
