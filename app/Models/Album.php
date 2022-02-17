@@ -20,7 +20,7 @@ class Album extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->where('report', '<', 3);
     }
 
     public function images()

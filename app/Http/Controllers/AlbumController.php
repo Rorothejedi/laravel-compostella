@@ -19,6 +19,7 @@ class AlbumController extends Controller
         $request->validate([
             'hide' => 'filled|boolean',
             'per_page' => 'filled|integer|min:-1',
+            'sort_by' => 'filled',
         ]);
 
         $albums = Album::with(['images' => function ($query) {
@@ -29,7 +30,9 @@ class AlbumController extends Controller
             $albums = $albums->where('hide', $request->hide);
         }
 
-        $albums = $albums->orderBy('date', 'DESC')->get();
+        $sort_by = ($request->has('sort_by')) ? $request->sort_by : 'desc';
+
+        $albums = $albums->orderBy('date', $sort_by)->get();
 
         $per_page = $request->has('per_page') ? $request->per_page : 10;
 
