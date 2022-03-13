@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/albums', [AlbumController::class, 'index']);
+Route::get('/albums-simple', [AlbumController::class, 'indexSimple']);
 Route::get('/album/{album}', [AlbumController::class, 'show']);
 
 Route::post('/comment', [CommentController::class, 'store']);

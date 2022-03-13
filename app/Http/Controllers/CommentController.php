@@ -14,6 +14,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'g-recaptcha-response' => 'required|captcha',
             'album_id' => 'required|exists:albums,id',
             'author' => 'required|string',
             'text' => 'required|string',

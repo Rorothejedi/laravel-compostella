@@ -34,11 +34,22 @@ class AlbumController extends Controller
 
         $albums = $albums->orderBy('date', $sort_by)->get();
 
-        $per_page = $request->has('per_page') ? $request->per_page : 10;
+        $per_page = $request->has('per_page') ? $request->per_page : 12;
 
         $paginated = PaginationHelper::paginate($albums, $per_page);
 
         return AlbumResource::collection($paginated);
+    }
+
+    /**
+     * Get minified data from all albums for client pathline
+     */
+    public function indexSimple()
+    {
+        return Album::where('hide', 0)
+            ->select('id', 'km_total')
+            ->orderBy('km_total', 'asc')
+            ->get();
     }
 
     /**
