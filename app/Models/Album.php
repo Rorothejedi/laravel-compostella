@@ -18,6 +18,11 @@ class Album extends Model
         'hide',
     ];
 
+    protected $casts = [
+        'km_step' => 'float',
+        'km_total' => 'float',
+    ];
+
     public function comments()
     {
         return $this->hasMany(Comment::class)->where('report', '<', 3);

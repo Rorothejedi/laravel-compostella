@@ -17,7 +17,7 @@ class AlbumResource extends JsonResource
     {
         $response = parent::toArray($request);
 
-        $response['km_total_max'] = Album::max('km_total');
+        $response['km_total_max'] = floatval(Album::max('km_total'));
 
         return $response;
     }

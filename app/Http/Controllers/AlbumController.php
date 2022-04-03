@@ -72,7 +72,7 @@ class AlbumController extends Controller
             'date' => 'required|date',
             'place_departure' => 'required|string',
             'place_arrival' => 'required|string',
-            'km_step' => 'required|integer|max:100',
+            'km_step' => 'required|numeric|min:0|max:100',
         ]);
 
         $album = Album::create($request->all());
@@ -93,7 +93,7 @@ class AlbumController extends Controller
             'date' => 'filled|date',
             'place_departure' => 'filled|string',
             'place_arrival' => 'filled|string',
-            'km_step' => 'filled|integer|min:0|max:100',
+            'km_step' => 'filled|numeric|min:0|max:100',
             'hide' => 'filled|boolean',
         ]);
 

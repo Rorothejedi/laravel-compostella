@@ -18,8 +18,8 @@ class AlbumFactory extends Factory
             'date' => $this->faker->date(),
             'place_departure' => $this->faker->city(),
             'place_arrival' => $this->faker->city(),
-            'km_step' => $this->faker->numberBetween(10, 40),
-            'km_total' => $this->faker->numberBetween(0, 1500),
+            'km_step' => $this->faker->randomFloat(1, 10, 40),
+            'km_total' => $this->faker->randomFloat(1, 0, 1500),
         ];
     }
 }
