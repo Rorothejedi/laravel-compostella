@@ -36,8 +36,12 @@ class CommentController extends Controller
      * Add one to report value for reported comment
      * Response 204
      */
-    public function report(Comment $comment)
+    public function report(Request $request, Comment $comment)
     {
+        $request->validate([
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+
         $comment->report++;
         $comment->save();
 
@@ -48,8 +52,12 @@ class CommentController extends Controller
      * Add one to love value for liked comment
      * Response 204
      */
-    public function love(Comment $comment)
+    public function love(Request $request, Comment $comment)
     {
+        $request->validate([
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+
         $comment->love++;
         $comment->save();
 
@@ -60,8 +68,12 @@ class CommentController extends Controller
      * Remove one to love value for liked comment
      * Response 204
      */
-    public function unlove(Comment $comment)
+    public function unlove(Request $request, Comment $comment)
     {
+        $request->validate([
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+
         if ($comment->love > 0) {
             $comment->love--;
             $comment->save();
