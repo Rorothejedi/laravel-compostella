@@ -7,14 +7,19 @@ deployment:
     - /bin/cp -R config  $DEPLOYPATH
     - /bin/cp -R database  $DEPLOYPATH
     - /bin/cp -R main  $DEPLOYPATH
-    - /bin/cp -R public  $DEPLOYPATH
     - /bin/cp -R resources  $DEPLOYPATH
     - /bin/cp -R routes  $DEPLOYPATH
     - /bin/cp -R storage $DEPLOYPATH
     - /bin/cp -R tests $DEPLOYPATH
-    # - /bin/cp -R vendor $DEPLOYPATH
+    - /bin/cp -R vendor $DEPLOYPATH
+    - /bin/cp -R .env $DEPLOYPATH
+    - /bin/cp -R artisan $DEPLOYPATH
+    - /bin/cp -R composer.json $DEPLOYPATH
+    - /bin/cp -R composer.lock $DEPLOYPATH
+    - /bin/cp -R package.json $DEPLOYPATH
+    - /bin/cp -R server.php $DEPLOYPATH
     # - /bin/cp /home/vlexvzko/app/package.json
     # - /bin/cp /home/vlexvzko/app/composer.json
     # - /bin/cp /home/vlexvzko/app/composer.lock
     # - /bin/cp /home/vlexvzko/app/webpack.mix.js
-    
+  
