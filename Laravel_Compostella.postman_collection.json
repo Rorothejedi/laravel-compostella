@@ -1,0 +1,688 @@
+{
+	"info": {
+		"_postman_id": "6218dd3f-a8a4-4641-aab6-66f654d430a6",
+		"name": "Laravel_Compostella",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "public",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "rodolphe.cabotiau@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "default"
+								},
+								{
+									"key": "g-recaptcha-response",
+									"value": "",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/albums",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"albums"
+							],
+							"query": [
+								{
+									"key": "hide",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "albums-simple",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/albums-simple",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"albums-simple"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "album/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/album/25",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "album/{id}/comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/album/5/comments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"5",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "album_id",
+									"value": "3",
+									"type": "default"
+								},
+								{
+									"key": "author",
+									"value": "Sebastian Smith",
+									"type": "default"
+								},
+								{
+									"key": "text",
+									"value": "Atque eos esse ut sed. Ipsum iste quae qui sit adipisci libero. Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis vitae repellendus, blanditiis nulla dolores doloribus perspiciatis harum magnam, culpa, itaque sequi ab consectetur minima eaque debitis dolorem quam. Quaerat, dolore! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique suscipit, autem quia aperiam illo rerum delectus blanditiis? Obcaecati quas modi quod placeat. Facilis libero id perspiciatis cumque dolores, iure harum.",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/comment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment/{id}/report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/comment/2/report",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"comment",
+								"2",
+								"report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment/{id}/love",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/comment/2/love",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"comment",
+								"2",
+								"love"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment/{id}/unlove",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/comment/2/unlove",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"comment",
+								"2",
+								"unlove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "private",
+			"item": [
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "album",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "11|gkBNFgwHTHFnRQo4dqm7Q0svc9H0G5KXPPxj84sR",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "text",
+									"value": "new sanctum",
+									"type": "default"
+								},
+								{
+									"key": "date",
+									"value": "1992-01-04",
+									"type": "default"
+								},
+								{
+									"key": "place_departure",
+									"value": "start place",
+									"type": "default"
+								},
+								{
+									"key": "place_arrival",
+									"value": "end place",
+									"type": "default"
+								},
+								{
+									"key": "km_step",
+									"value": "18",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/album",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"album"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "album/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "60|qSDxZYgHDTRhB3xRMpmAbvTrFlwhHGnxYn8bo3Jx",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "text",
+									"value": "updated text",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "place_departure",
+									"value": "new started place",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "place_arrival",
+									"value": "new ended place",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "km_step",
+									"value": "35.6",
+									"type": "default"
+								},
+								{
+									"key": "hide",
+									"value": "0",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/album/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "album/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|2gB6NmPdtgZpsGlnQUfDODeLGsPBJFXW6liAkwLZ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/album/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"album",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment/{id}",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/comment/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"comment",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/comment/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"comment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comments/reports",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3|Eq1jCACGcKYWnMM264gIJHCDIprlzrW6xPSrgSP7",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/comments/reports",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								"reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "images",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3|Eq1jCACGcKYWnMM264gIJHCDIprlzrW6xPSrgSP7",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "album_id",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": [
+										"/D:/Dropbox/Images/Banières/Bannière linkedIn.jpg",
+										"/D:/Dropbox/Images/Banières/Bannière SerieBox.jpg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/images",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "37|iHei009gAQ1vBPnvL1QFYpvZuKRRR2n1wQHLfIAW",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "text",
+									"value": "new text",
+									"description": "nullable",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "main_album_image",
+									"value": "1",
+									"description": "required",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "album_order",
+									"value": "2",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/image/126",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"126"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "11|gkBNFgwHTHFnRQo4dqm7Q0svc9H0G5KXPPxj84sR",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/image/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "local host",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "BASE_URL",
+			"value": "online host",
+			"type": "default"
+		}
+	]
+}
