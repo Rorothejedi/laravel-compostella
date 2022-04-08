@@ -55,7 +55,7 @@ class ImageController extends Controller
 
             $image = new ImageModel();
 
-            $image_size = getimagesize("storageh/$name.jpg");
+            $image_size = getimagesize("storage/$name.jpg");
 
             $image->album_id = $request->album_id;
             $image->album_order = $this->getMaxImageOrder($request->album_id) + 1;
