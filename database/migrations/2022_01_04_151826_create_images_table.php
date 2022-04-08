@@ -23,8 +23,6 @@ class CreateImagesTable extends Migration
             $table->integer('width');
             $table->integer('height');
             $table->string('thumbnail_path');
-            $table->integer('thumbnail_width');
-            $table->integer('thumbnail_height');
             $table->string('cover_path');
             $table->timestamps();
         });

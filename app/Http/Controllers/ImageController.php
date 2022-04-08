@@ -32,42 +32,40 @@ class ImageController extends Controller
             $thumbnail_name = "thumbnail_$name";
             $cover_name = "cover_$name";
 
+            $storage_path = env('APP_ENV') === 'prod' ? 'storage/app/public' : 'storage';
+            $real_storage_path = env('APP_ENV') === 'prod' ? storage_path('app/public') : 'storage';
+
             // Main image (for gallery)
             ImageManager::make($file)
                 ->orientate()
                 ->heighten(1500)
-                ->save("storage/$name.jpg", 70);
+                ->save("$real_storage_path/$name.jpg", 70);
 
             // Thumbnail image (for gallery)
             ImageManager::make($file)
                 ->orientate()
                 ->heighten(400)
-                ->save("storage/$thumbnail_name.jpg", 80);
+                ->save("$real_storage_path/$thumbnail_name.jpg", 80);
 
             // Cover image
             ImageManager::make($file)
                 ->orientate()
                 ->fit(400)
-                ->save("storage/$cover_name.jpg", 85);
+                ->save("$real_storage_path/$cover_name.jpg", 85);
 
             $image = new ImageModel();
 
-            $image_size = getimagesize("storage/$name.jpg");
-            $thumbnail_size = getimagesize("storage/$thumbnail_name.jpg");
+            $image_size = getimagesize("$real_storage_path/$name.jpg");
 
             $image->album_id = $request->album_id;
             $image->album_order = $this->getMaxImageOrder($request->album_id) + 1;
 
-            $image->path = "storage/$name.jpg";
+            $image->path = "$storage_path/$name.jpg";
             $image->width = $image_size[0];
             $image->height = $image_size[1];
 
-            $image->thumbnail_path = "storage/$thumbnail_name.jpg";
-            // A voir si c'est utile (peut être pour la grid) ?
-            $image->thumbnail_width = $thumbnail_size[0];
-            $image->thumbnail_height = $thumbnail_size[1];
-
-            $image->cover_path = "storage/$cover_name.jpg";
+            $image->thumbnail_path = "$storage_path/$thumbnail_name.jpg";
+            $image->cover_path = "$storage_path/$cover_name.jpg";
 
             $image->save();
         }
