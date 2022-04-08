@@ -11,6 +11,7 @@ class ImageController extends Controller
 {
     /**
      * Upload one or several images on server side
+     * Be sure to launch php artisan storage:link to create symbolic link before !
      */
     public function store(Request $request)
     {
@@ -33,29 +34,28 @@ class ImageController extends Controller
             $cover_name = "cover_$name";
 
             $storage_path = env('APP_ENV') === 'prod' ? 'storage/app/public' : 'storage';
-            $real_storage_path = env('APP_ENV') === 'prod' ? storage_path('app/public') : 'storage';
 
             // Main image (for gallery)
             ImageManager::make($file)
                 ->orientate()
                 ->heighten(1500)
-                ->save("$real_storage_path/$name.jpg", 70);
+                ->save("storage/$name.jpg", 70);
 
             // Thumbnail image (for gallery)
             ImageManager::make($file)
                 ->orientate()
                 ->heighten(400)
-                ->save("$real_storage_path/$thumbnail_name.jpg", 80);
+                ->save("storage/$thumbnail_name.jpg", 80);
 
             // Cover image
             ImageManager::make($file)
                 ->orientate()
                 ->fit(400)
-                ->save("$real_storage_path/$cover_name.jpg", 85);
+                ->save("storage/$cover_name.jpg", 85);
 
             $image = new ImageModel();
 
-            $image_size = getimagesize("$real_storage_path/$name.jpg");
+            $image_size = getimagesize("storageh/$name.jpg");
 
             $image->album_id = $request->album_id;
             $image->album_order = $this->getMaxImageOrder($request->album_id) + 1;
