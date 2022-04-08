@@ -21,6 +21,7 @@ class Album extends Model
     protected $casts = [
         'km_step' => 'float',
         'km_total' => 'float',
+        'hide' => 'boolean',
     ];
 
     public function comments()
