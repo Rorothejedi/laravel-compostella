@@ -121,7 +121,9 @@ class ImageController extends Controller
      */
     public function destroy(ImageModel $image)
     {
-        $file_name = explode('/', $image->path)[1];
+        $exploded_file = explode('/', $image->path);
+        $file_name = env('APP_ENV') === 'prod' ? $exploded_file[3] : $exploded_file[1];
+
         $album_id = $image->album_id;
 
         Storage::delete("public/$file_name");
