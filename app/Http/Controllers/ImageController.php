@@ -33,8 +33,6 @@ class ImageController extends Controller
             $thumbnail_name = "thumbnail_$name";
             $cover_name = "cover_$name";
 
-            $storage_path = env('APP_ENV') === 'prod' ? 'storage/app/public' : 'storage';
-
             // Main image (for gallery)
             ImageManager::make($file)
                 ->orientate()
@@ -60,12 +58,12 @@ class ImageController extends Controller
             $image->album_id = $request->album_id;
             $image->album_order = $this->getMaxImageOrder($request->album_id) + 1;
 
-            $image->path = "$storage_path/$name.jpg";
+            $image->path = "storage/$name.jpg";
             $image->width = $image_size[0];
             $image->height = $image_size[1];
 
-            $image->thumbnail_path = "$storage_path/$thumbnail_name.jpg";
-            $image->cover_path = "$storage_path/$cover_name.jpg";
+            $image->thumbnail_path = "storage/$thumbnail_name.jpg";
+            $image->cover_path = "storage/$cover_name.jpg";
 
             $image->save();
         }
@@ -121,9 +119,7 @@ class ImageController extends Controller
      */
     public function destroy(ImageModel $image)
     {
-        $exploded_file = explode('/', $image->path);
-        $file_name = env('APP_ENV') === 'prod' ? $exploded_file[3] : $exploded_file[1];
-
+        $file_name = explode('/', $image->path)[1];
         $album_id = $image->album_id;
 
         Storage::delete("public/$file_name");
