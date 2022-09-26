@@ -58,6 +58,14 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
+        $album->next_album = Album::whereDate('date', '>', $album->date)
+            ->orderBy('date')
+            ->first();
+
+        $album->previous_album = Album::whereDate('date', '<', $album->date)
+            ->orderBy('date', 'desc')
+            ->first();
+
         return $album->load(['comments', 'images', 'videos']);
     }
 
