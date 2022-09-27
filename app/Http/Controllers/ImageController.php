@@ -151,7 +151,7 @@ class ImageController extends Controller
         $images = ImageModel::where('album_id', $album_id)->orderBy('album_order')->get();
 
         foreach ($images as $key => $image) {
-            $image->album_order = $key;
+            $image->album_order = $key + 1;
             $image->save();
         }
     }
